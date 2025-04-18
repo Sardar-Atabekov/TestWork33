@@ -1,0 +1,95 @@
+.weatherCard {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .favoriteButton {
+    svg {
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover svg {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.weatherMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  
+  .temperature {
+    text-align: center;
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    
+    p {
+      color: #6c757d;
+      margin-bottom: 0;
+    }
+  }
+  
+  .weatherIcon {
+    text-align: center;
+    
+    img {
+      margin-bottom: 0.3rem;
+    }
+    
+    p {
+      color: #343a40;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.weatherDetails {
+  .detailItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    
+    svg {
+      color: #6c757d;
+      margin-right: 0.75rem;
+    }
+    
+    div {
+      span {
+        display: block;
+        font-size: 0.85rem;
+      }
+      
+      p {
+        margin-bottom: 0;
+        font-weight: 500;
+        color: #343a40;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .weatherMain {
+    flex-direction: column;
+    
+    .temperature, .weatherIcon {
+      margin-bottom: 1rem;
+    }
+  }
+}

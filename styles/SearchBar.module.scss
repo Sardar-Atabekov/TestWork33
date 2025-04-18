@@ -1,0 +1,31 @@
+.searchBar {
+  max-width: 600px;
+  margin: 0 auto;
+  
+  input {
+    border-radius: 8px 0 0 8px;
+    height: 50px;
+    font-size: 1.1rem;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+      border-color: #86b7fe;
+    }
+  }
+  
+  button {
+    border-radius: 0 8px 8px 0;
+    height: 50px;
+    font-size: 1.1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
