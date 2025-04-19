@@ -44,6 +44,6 @@ export const useWeatherStore = create<WeatherState>()(
     {
       name: "weather-storage",
       storage: getStorage(), // ✅ теперь типы совпадают
-    }
-  )
+    },
+  ),
 );

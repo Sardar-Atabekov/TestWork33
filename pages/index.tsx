@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import SearchBar from '../components/SearchBar';
-import WeatherCard from '../components/WeatherCard';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
-import { getCurrentWeather } from '../utils/api';
-import { useWeatherStore } from '../store/weatherStore';
-import { CurrentWeather } from '../types/weather';
-import styles from '../styles/Home.module.scss';
-import 'dotenv/config';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import SearchBar from "../components/SearchBar";
+import WeatherCard from "../components/WeatherCard";
+import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorMessage from "../components/ErrorMessage";
+import { getCurrentWeather } from "../utils/api";
+import { useWeatherStore } from "../store/weatherStore";
+import { CurrentWeather } from "../types/weather";
+import styles from "../styles/Home.module.scss";
+import "dotenv/config";
 export default function Home() {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);
   const [loading, setLoading] = useState(false);
@@ -19,8 +19,8 @@ export default function Home() {
 
   // Fetch weather data when city is provided in query or from store
   useEffect(() => {
-    const cityToSearch = typeof city === 'string' ? city : lastSearchedCity;
-    
+    const cityToSearch = typeof city === "string" ? city : lastSearchedCity;
+
     if (cityToSearch) {
       fetchWeather(cityToSearch);
     }
@@ -29,18 +29,22 @@ export default function Home() {
   const fetchWeather = async (cityName: string) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const data = await getCurrentWeather(cityName);
       setWeather(data);
       setLastSearchedCity(cityName);
-      
+
       // Update URL without page reload
-      if (typeof window !== 'undefined' && router.query.city !== cityName) {
-        router.push(`/?city=${encodeURIComponent(cityName)}`, undefined, { shallow: true });
+      if (typeof window !== "undefined" && router.query.city !== cityName) {
+        router.push(`/?city=${encodeURIComponent(cityName)}`, undefined, {
+          shallow: true,
+        });
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred",
+      );
       setWeather(null);
     } finally {
       setLoading(false);
@@ -57,11 +61,16 @@ export default function Home() {
         <h1>Weather Forecast</h1>
         <p>Check current weather and forecasts for any city in the world</p>
       </div>
-      
+
       <div className={styles.searchSection}>
-        <SearchBar onSearch={handleSearch} defaultValue={typeof city === 'string' ? city : lastSearchedCity || ''} />
+        <SearchBar
+          onSearch={handleSearch}
+          defaultValue={
+            typeof city === "string" ? city : lastSearchedCity || ""
+          }
+        />
       </div>
-      
+
       <div className={styles.weatherDisplay}>
         {loading ? (
           <LoadingSpinner />
@@ -94,14 +103,16 @@ export default function Home() {
           </div>
         )}
       </div>
-      
+
       {!loading && !error && !weather && (
         <div className={styles.infoBox}>
           <h2>How to use this app</h2>
           <p>1. Enter a city name in the search bar above</p>
           <p>2. View current weather conditions for that city</p>
           <p>3. Click "View 5-Day Forecast" for detailed forecast</p>
-          <p>4. Save your favorite cities to quickly access weather information</p>
+          <p>
+            4. Save your favorite cities to quickly access weather information
+          </p>
         </div>
       )}
     </div>

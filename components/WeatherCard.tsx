@@ -1,25 +1,28 @@
-import React from 'react';
-import Link from 'next/link';
-import { useWeatherStore } from '../store/weatherStore';
-import { CurrentWeather } from '../types/weather';
-import styles from '../styles/WeatherCard.module.scss';
+import React from "react";
+import Link from "next/link";
+import { useWeatherStore } from "../store/weatherStore";
+import { CurrentWeather } from "../types/weather";
+import styles from "../styles/WeatherCard.module.scss";
 
 interface WeatherCardProps {
   weather: CurrentWeather;
   showForecastLink?: boolean;
 }
 
-const WeatherCard = ({ weather, showForecastLink = true }: WeatherCardProps) => {
+const WeatherCard = ({
+  weather,
+  showForecastLink = true,
+}: WeatherCardProps) => {
   const { addFavorite, removeFavorite, favorites } = useWeatherStore();
-  const isFavorite = favorites.some(fav => fav.id === weather.id);
+  const isFavorite = favorites.some((fav) => fav.id === weather.id);
 
   // Format date
   const date = new Date();
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(date);
 
   // Get weather icon URL
@@ -36,18 +39,20 @@ const WeatherCard = ({ weather, showForecastLink = true }: WeatherCardProps) => 
   return (
     <div className={`card ${styles.weatherCard}`}>
       <div className="card-header d-flex justify-content-between align-items-center">
-        <h2 className="mb-0">{weather.name}, {weather.sys.country}</h2>
+        <h2 className="mb-0">
+          {weather.name}, {weather.sys.country}
+        </h2>
         <button
-          className={`btn ${isFavorite ? 'btn-warning' : 'btn-outline-warning'} ${styles.favoriteButton}`}
+          className={`btn ${isFavorite ? "btn-warning" : "btn-outline-warning"} ${styles.favoriteButton}`}
           onClick={toggleFavorite}
-          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
             viewBox="0 0 24 24"
-            fill={isFavorite ? 'currentColor' : 'none'}
+            fill={isFavorite ? "currentColor" : "none"}
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
@@ -74,7 +79,7 @@ const WeatherCard = ({ weather, showForecastLink = true }: WeatherCardProps) => 
             <p className="text-capitalize">{weather.weather[0].description}</p>
           </div>
         </div>
-        
+
         <div className={styles.weatherDetails}>
           <div className="row mt-3">
             <div className="col-md-3 col-6">
@@ -173,10 +178,10 @@ const WeatherCard = ({ weather, showForecastLink = true }: WeatherCardProps) => 
             </div>
           </div>
         </div>
-        
+
         {showForecastLink && (
           <div className="mt-4 d-flex justify-content-center">
-            <Link 
+            <Link
               href={`/forecast/${encodeURIComponent(weather.name)}`}
               className="btn btn-primary"
             >

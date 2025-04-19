@@ -1,6 +1,6 @@
-import React from 'react';
-import { ForecastItem } from '../types/weather';
-import styles from '../styles/ForecastCard.module.scss';
+import React from "react";
+import { ForecastItem } from "../types/weather";
+import styles from "../styles/ForecastCard.module.scss";
 
 interface ForecastCardProps {
   forecast: ForecastItem;
@@ -9,16 +9,18 @@ interface ForecastCardProps {
 const ForecastCard = ({ forecast }: ForecastCardProps) => {
   // Format the date
   const date = new Date(forecast.dt * 1000);
-  const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
+  const day = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
+    date,
+  );
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
   }).format(date);
-  
+
   // Get time
-  const time = new Intl.DateTimeFormat('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
+  const time = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   }).format(date);
 
@@ -28,7 +30,9 @@ const ForecastCard = ({ forecast }: ForecastCardProps) => {
   return (
     <div className={`card ${styles.forecastCard}`}>
       <div className="card-body">
-        <h5 className="card-title">{day}, {formattedDate}</h5>
+        <h5 className="card-title">
+          {day}, {formattedDate}
+        </h5>
         <p className="text-muted">{time}</p>
         <div className={styles.forecastMain}>
           <div className={styles.forecastTemp}>

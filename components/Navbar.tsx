@@ -1,13 +1,15 @@
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import styles from '../styles/Navbar.module.scss';
+import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styles from "../styles/Navbar.module.scss";
 
 const Navbar = () => {
   const router = useRouter();
 
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark bg-primary ${styles.navbar}`}>
+    <nav
+      className={`navbar navbar-expand-lg navbar-dark bg-primary ${styles.navbar}`}
+    >
       <div className="container">
         <Link href="/" className="navbar-brand d-flex align-items-center">
           <svg
@@ -26,7 +28,7 @@ const Navbar = () => {
           </svg>
           <span>Weather App</span>
         </Link>
-        
+
         <button
           className="navbar-toggler"
           type="button"
@@ -38,21 +40,25 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link 
-                href="/" 
-                className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}
+              <Link
+                href="/"
+                className={`nav-link ${
+                  router.pathname === "/" ? "active" : ""
+                }`}
               >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link 
-                href="/favorites" 
-                className={`nav-link ${router.pathname === '/favorites' ? 'active' : ''}`}
+              <Link
+                href="/favorites"
+                className={`nav-link ${
+                  router.pathname === "/favorites" ? "active" : ""
+                }`}
               >
                 Favorites
               </Link>

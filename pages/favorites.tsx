@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useWeatherStore } from '../store/weatherStore';
-import WeatherCard from '../components/WeatherCard';
-import { getCurrentWeather } from '../utils/api';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useWeatherStore } from "../store/weatherStore";
+import WeatherCard from "../components/WeatherCard";
+import { getCurrentWeather } from "../utils/api";
+import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default function FavoritesPage() {
   const { favorites } = useWeatherStore();
@@ -13,21 +13,21 @@ export default function FavoritesPage() {
 
   // Refresh weather data for a specific city
   const refreshWeather = async (cityName: string, cityId: number) => {
-    setRefreshing(prev => ({ ...prev, [cityId]: true }));
-    setErrors(prev => ({ ...prev, [cityId]: '' }));
-    
+    setRefreshing((prev) => ({ ...prev, [cityId]: true }));
+    setErrors((prev) => ({ ...prev, [cityId]: "" }));
+
     try {
       const updatedWeather = await getCurrentWeather(cityName);
-      
+
       // Update favorite with new data
       useWeatherStore.getState().addFavorite(updatedWeather);
     } catch (err) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [cityId]: err instanceof Error ? err.message : 'Failed to refresh'
+        [cityId]: err instanceof Error ? err.message : "Failed to refresh",
       }));
     } finally {
-      setRefreshing(prev => ({ ...prev, [cityId]: false }));
+      setRefreshing((prev) => ({ ...prev, [cityId]: false }));
     }
   };
 
@@ -55,8 +55,8 @@ export default function FavoritesPage() {
           </svg>
           <h3>No favorites yet</h3>
           <p>
-            Search for cities on the home page and click the heart icon to add them to your
-            favorites for quick access.
+            Search for cities on the home page and click the heart icon to add
+            them to your favorites for quick access.
           </p>
           <Link href="/" className="btn btn-primary">
             Go to Home Page
@@ -65,22 +65,27 @@ export default function FavoritesPage() {
       ) : (
         <div>
           <div className="mb-4">
-            <p>You have {favorites.length} favorite {favorites.length === 1 ? 'city' : 'cities'}</p>
+            <p>
+              You have {favorites.length} favorite{" "}
+              {favorites.length === 1 ? "city" : "cities"}
+            </p>
           </div>
-          
+
           <div className="row">
-            {favorites.map(city => (
+            {favorites.map((city) => (
               <div key={city.id} className="col-12 col-md-6 mb-4">
                 {refreshing[city.id] ? (
-                  <LoadingSpinner message={`Refreshing ${city.name} weather...`} />
+                  <LoadingSpinner
+                    message={`Refreshing ${city.name} weather...`}
+                  />
                 ) : (
                   <>
                     <WeatherCard weather={city} />
-                    
+
                     {errors[city.id] && (
                       <ErrorMessage message={errors[city.id]} />
                     )}
-                    
+
                     <div className="d-flex justify-content-center mt-3">
                       <button
                         className="btn btn-outline-primary me-2"
@@ -105,9 +110,9 @@ export default function FavoritesPage() {
                         </svg>
                         Refresh
                       </button>
-                      
-                      <Link 
-                        href={`/forecast/${encodeURIComponent(city.name)}`} 
+
+                      <Link
+                        href={`/forecast/${encodeURIComponent(city.name)}`}
                         className="btn btn-primary"
                       >
                         View Forecast
