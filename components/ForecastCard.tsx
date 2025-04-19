@@ -1,13 +1,13 @@
 import React from "react";
 import { ForecastItem } from "../types/weather";
 import styles from "../styles/ForecastCard.module.scss";
+import Image from "next/image";
 
 interface ForecastCardProps {
   forecast: ForecastItem;
 }
 
 const ForecastCard = ({ forecast }: ForecastCardProps) => {
-  // Format the date
   const date = new Date(forecast.dt * 1000);
   const day = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
     date,
@@ -17,15 +17,14 @@ const ForecastCard = ({ forecast }: ForecastCardProps) => {
     day: "numeric",
   }).format(date);
 
-  // Get time
+  // Получаем время
   const time = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
   }).format(date);
 
-  // Get weather icon URL
-  const iconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+  const iconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
 
   return (
     <div className={`card ${styles.forecastCard}`}>
@@ -39,23 +38,25 @@ const ForecastCard = ({ forecast }: ForecastCardProps) => {
             <h2>{Math.round(forecast.main.temp)}°C</h2>
           </div>
           <div className={styles.forecastIcon}>
-            <img
+            <Image
               src={iconUrl}
               alt={forecast.weather[0].description}
-              width="50"
-              height="50"
+              width={50}
+              height={50}
+              unoptimized
+              loading="lazy"
             />
             <p className="text-capitalize">{forecast.weather[0].description}</p>
           </div>
         </div>
         <div className={`row ${styles.forecastDetails}`}>
           <div className="col-6">
-            <small className="text-muted">Humidity:</small>
+            <small className="text-muted">Влажность:</small>
             <p>{forecast.main.humidity}%</p>
           </div>
           <div className="col-6">
-            <small className="text-muted">Wind:</small>
-            <p>{forecast.wind.speed} m/s</p>
+            <small className="text-muted">Ветер:</small>
+            <p>{forecast.wind.speed} м/с</p>
           </div>
         </div>
       </div>

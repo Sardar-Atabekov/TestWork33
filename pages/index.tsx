@@ -7,54 +7,67 @@ import ErrorMessage from "../components/ErrorMessage";
 import { getCurrentWeather } from "../utils/api";
 import { useWeatherStore } from "../store/weatherStore";
 import { CurrentWeather } from "../types/weather";
+import { useCallback } from "react";
 import styles from "../styles/Home.module.scss";
-import "dotenv/config";
+
 export default function Home() {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const { lastSearchedCity, setLastSearchedCity } = useWeatherStore();
   const router = useRouter();
   const { city } = router.query;
 
-  // Fetch weather data when city is provided in query or from store
+  // Определяем, выполняется ли код на клиенте
   useEffect(() => {
-    const cityToSearch = typeof city === "string" ? city : lastSearchedCity;
+    setIsClient(true);
+  }, []);
 
-    if (cityToSearch) {
-      fetchWeather(cityToSearch);
-    }
-  }, [city, lastSearchedCity]);
+  const fetchWeather = useCallback(
+    async (cityName: string) => {
+      if (!cityName) return;
 
-  const fetchWeather = async (cityName: string) => {
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const data = await getCurrentWeather(cityName);
-      setWeather(data);
-      setLastSearchedCity(cityName);
+      try {
+        const data = await getCurrentWeather(cityName);
+        setWeather(data);
+        setLastSearchedCity(cityName);
 
-      // Update URL without page reload
-      if (typeof window !== "undefined" && router.query.city !== cityName) {
-        router.push(`/?city=${encodeURIComponent(cityName)}`, undefined, {
-          shallow: true,
-        });
+        // Обновляем URL без перезагрузки страницы
+        if (isClient && router.query.city !== cityName) {
+          router.push(`/?city=${encodeURIComponent(cityName)}`, undefined, {
+            shallow: true,
+          });
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred",
+        );
+        setWeather(null);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred",
-      );
-      setWeather(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [router, setLastSearchedCity, isClient],
+  );
 
   const handleSearch = (city: string) => {
     fetchWeather(city);
   };
 
+  useEffect(() => {
+    if (!isClient) return;
+
+    const cityToSearch = typeof city === "string" ? city : lastSearchedCity;
+    if (cityToSearch) {
+      fetchWeather(cityToSearch);
+    }
+  }, [city, lastSearchedCity, fetchWeather, isClient]);
+
+  // Рендерим разметку
   return (
     <div className={styles.homeContainer}>
       <div className="page-header">
@@ -109,7 +122,7 @@ export default function Home() {
           <h2>How to use this app</h2>
           <p>1. Enter a city name in the search bar above</p>
           <p>2. View current weather conditions for that city</p>
-          <p>3. Click "View 5-Day Forecast" for detailed forecast</p>
+          <p>3. Click {"View 5-Day Forecast"} for detailed forecast</p>
           <p>
             4. Save your favorite cities to quickly access weather information
           </p>

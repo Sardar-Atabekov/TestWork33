@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useWeatherStore } from "../store/weatherStore";
 import { CurrentWeather } from "../types/weather";
 import styles from "../styles/WeatherCard.module.scss";
+import Image from "next/image";
 
 interface WeatherCardProps {
   weather: CurrentWeather;
@@ -70,11 +71,13 @@ const WeatherCard = ({
             <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
           </div>
           <div className={styles.weatherIcon}>
-            <img
+            <Image
               src={iconUrl}
               alt={weather.weather[0].description}
-              width="100"
-              height="100"
+              width={100}
+              height={100}
+              unoptimized
+              loading="lazy"
             />
             <p className="text-capitalize">{weather.weather[0].description}</p>
           </div>

@@ -5,10 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/global.scss";
 
 export default function App({ Component, pageProps }: AppProps) {
-  // Add Bootstrap JS when component mounts (client-side only)
   useEffect(() => {
     if (typeof window !== "undefined") {
-      require("bootstrap/dist/js/bootstrap.bundle.min.js");
+      import("bootstrap/dist/js/bootstrap.bundle.min.js");
     }
   }, []);
 

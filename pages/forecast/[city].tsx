@@ -11,7 +11,7 @@ import ForecastCard from "../../components/ForecastCard";
 import WeatherCard from "../../components/WeatherCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
-import styles from "../../styles/Home.module.scss";
+// import styles from "../../styles/Home.module.scss";
 
 export default function ForecastPage() {
   const router = useRouter();
