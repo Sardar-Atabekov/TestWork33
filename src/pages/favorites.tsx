@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { useWeatherStore } from "../store/weatherStore";
-import WeatherCard from "../components/WeatherCard";
-import { getCurrentWeather } from "../utils/api";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ErrorMessage from "../components/ErrorMessage";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useWeatherStore } from '../shared/store/weatherStore';
+import WeatherCard from '@shared/ui/WeatherCard';
+import { getCurrentWeather } from '@shared/api/api';
+import LoadingSpinner from '@shared/ui/LoadingSpinner';
+import ErrorMessage from '@shared/ui/ErrorMessage';
 
 export default function FavoritesPage() {
   const { favorites } = useWeatherStore();
@@ -14,7 +14,7 @@ export default function FavoritesPage() {
   // Refresh weather data for a specific city
   const refreshWeather = async (cityName: string, cityId: number) => {
     setRefreshing((prev) => ({ ...prev, [cityId]: true }));
-    setErrors((prev) => ({ ...prev, [cityId]: "" }));
+    setErrors((prev) => ({ ...prev, [cityId]: '' }));
 
     try {
       const updatedWeather = await getCurrentWeather(cityName);
@@ -24,7 +24,7 @@ export default function FavoritesPage() {
     } catch (err) {
       setErrors((prev) => ({
         ...prev,
-        [cityId]: err instanceof Error ? err.message : "Failed to refresh",
+        [cityId]: err instanceof Error ? err.message : 'Failed to refresh',
       }));
     } finally {
       setRefreshing((prev) => ({ ...prev, [cityId]: false }));
@@ -66,8 +66,8 @@ export default function FavoritesPage() {
         <div>
           <div className="mb-4">
             <p>
-              You have {favorites.length} favorite{" "}
-              {favorites.length === 1 ? "city" : "cities"}
+              You have {favorites.length} favorite{' '}
+              {favorites.length === 1 ? 'city' : 'cities'}
             </p>
           </div>
 

@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import SearchBar from "../components/SearchBar";
-import WeatherCard from "../components/WeatherCard";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ErrorMessage from "../components/ErrorMessage";
-import { getCurrentWeather } from "../utils/api";
-import { useWeatherStore } from "../store/weatherStore";
-import { CurrentWeather } from "../types/weather";
-import { useCallback } from "react";
-import styles from "../styles/Home.module.scss";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import SearchBar from '../shared/ui/SearchBar';
+import WeatherCard from '@shared/ui/WeatherCard';
+import LoadingSpinner from '@shared/ui/LoadingSpinner';
+import ErrorMessage from '@shared/ui/ErrorMessage';
+import { getCurrentWeather } from '../shared/api/api';
+import { useWeatherStore } from '../shared/store/weatherStore';
+import { CurrentWeather } from '../shared/types/weather';
+import { useCallback } from 'react';
+import styles from '@shared/styles/Home.module.scss';
 
 export default function Home() {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);
@@ -44,14 +44,14 @@ export default function Home() {
         }
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "An unknown error occurred",
+          err instanceof Error ? err.message : 'An unknown error occurred'
         );
         setWeather(null);
       } finally {
         setLoading(false);
       }
     },
-    [router, setLastSearchedCity, isClient],
+    [router, setLastSearchedCity, isClient]
   );
 
   const handleSearch = (city: string) => {
@@ -61,7 +61,7 @@ export default function Home() {
   useEffect(() => {
     if (!isClient) return;
 
-    const cityToSearch = typeof city === "string" ? city : lastSearchedCity;
+    const cityToSearch = typeof city === 'string' ? city : lastSearchedCity;
     if (cityToSearch) {
       fetchWeather(cityToSearch);
     }
@@ -79,7 +79,7 @@ export default function Home() {
         <SearchBar
           onSearch={handleSearch}
           defaultValue={
-            typeof city === "string" ? city : lastSearchedCity || ""
+            typeof city === 'string' ? city : lastSearchedCity || ''
           }
         />
       </div>
@@ -122,7 +122,7 @@ export default function Home() {
           <h2>How to use this app</h2>
           <p>1. Enter a city name in the search bar above</p>
           <p>2. View current weather conditions for that city</p>
-          <p>3. Click {"View 5-Day Forecast"} for detailed forecast</p>
+          <p>3. Click {'View 5-Day Forecast'} for detailed forecast</p>
           <p>
             4. Save your favorite cities to quickly access weather information
           </p>

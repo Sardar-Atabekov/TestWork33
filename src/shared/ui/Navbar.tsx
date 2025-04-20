@@ -1,7 +1,7 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import styles from "../styles/Navbar.module.scss";
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import styles from './../styles/Navbar.module.scss';
 
 const Navbar = () => {
   const router = useRouter();
@@ -47,7 +47,7 @@ const Navbar = () => {
               <Link
                 href="/"
                 className={`nav-link ${
-                  router.pathname === "/" ? "active" : ""
+                  router.pathname === '/' ? 'active' : ''
                 }`}
               >
                 Home
@@ -57,7 +57,7 @@ const Navbar = () => {
               <Link
                 href="/favorites"
                 className={`nav-link ${
-                  router.pathname === "/favorites" ? "active" : ""
+                  router.pathname === '/favorites' ? 'active' : ''
                 }`}
               >
                 Favorites

@@ -1,13 +1,13 @@
-import React, { useState, FormEvent } from "react";
-import { useRouter } from "next/router";
-import styles from "../styles/SearchBar.module.scss";
+import React, { useState, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import styles from '@shared/styles/SearchBar.module.scss';
 
 interface SearchBarProps {
   onSearch?: (city: string) => void;
   defaultValue?: string;
 }
 
-const SearchBar = ({ onSearch, defaultValue = "" }: SearchBarProps) => {
+const SearchBar = ({ onSearch, defaultValue = '' }: SearchBarProps) => {
   const [city, setCity] = useState(defaultValue);
   const router = useRouter();
 

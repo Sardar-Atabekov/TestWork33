@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { getForecast, getCurrentWeather } from "../../utils/api";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { getForecast, getCurrentWeather } from '../shared/api/api';
 import {
   ForecastItem,
   WeatherForecast,
   CurrentWeather,
-} from "../../types/weather";
-import ForecastCard from "../../components/ForecastCard";
-import WeatherCard from "../../components/WeatherCard";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import ErrorMessage from "../../components/ErrorMessage";
-// import styles from "../../styles/Home.module.scss";
+} from '../shared/types/weather';
+import ForecastCard from '@shared/ui/ForecastCard';
+import WeatherCard from '@shared/ui/WeatherCard';
+import LoadingSpinner from '@shared/ui/LoadingSpinner';
+import ErrorMessage from '@shared/ui/ErrorMessage';
+// import styles from "../@shared/styles/Home.module.scss";
 
 export default function ForecastPage() {
   const router = useRouter();
@@ -19,13 +19,13 @@ export default function ForecastPage() {
 
   const [forecast, setForecast] = useState<WeatherForecast | null>(null);
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
-    null,
+    null
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof city === "string") {
+    if (typeof city === 'string') {
       fetchData(city);
     }
   }, [city]);
@@ -45,7 +45,7 @@ export default function ForecastPage() {
       setCurrentWeather(weatherData);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "An unknown error occurred",
+        err instanceof Error ? err.message : 'An unknown error occurred'
       );
     } finally {
       setLoading(false);
@@ -58,7 +58,7 @@ export default function ForecastPage() {
 
     forecastList.forEach((item) => {
       const date = new Date(item.dt * 1000);
-      const day = date.toISOString().split("T")[0];
+      const day = date.toISOString().split('T')[0];
 
       if (!grouped[day]) {
         grouped[day] = [];
@@ -118,11 +118,11 @@ export default function ForecastPage() {
       {Object.entries(groupedForecast).map(([day, items]) => (
         <div key={day} className="mb-5">
           <h3 className="mb-3">
-            {new Date(day).toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
+            {new Date(day).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
             })}
           </h3>
           <div className="row row-cols-1 row-cols-md-3 g-4">

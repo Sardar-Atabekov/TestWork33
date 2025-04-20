@@ -1,7 +1,7 @@
-import React from "react";
-import { ForecastItem } from "../types/weather";
-import styles from "../styles/ForecastCard.module.scss";
-import Image from "next/image";
+import React from 'react';
+import { ForecastItem } from './../types/weather';
+import styles from './../../shared/styles/ForecastCard.module.scss';
+import Image from 'next/image';
 
 interface ForecastCardProps {
   forecast: ForecastItem;
@@ -9,18 +9,18 @@ interface ForecastCardProps {
 
 const ForecastCard = ({ forecast }: ForecastCardProps) => {
   const date = new Date(forecast.dt * 1000);
-  const day = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
-    date,
+  const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(
+    date
   );
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
   }).format(date);
 
   // Получаем время
-  const time = new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "numeric",
+  const time = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: true,
   }).format(date);
 

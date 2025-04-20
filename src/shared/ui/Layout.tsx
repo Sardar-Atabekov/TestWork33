@@ -1,13 +1,13 @@
-import React, { ReactNode } from "react";
-import Head from "next/head";
-import Navbar from "./Navbar";
+import React, { ReactNode } from 'react';
+import Head from 'next/head';
+import Navbar from '@shared/ui/Navbar';
 
 interface LayoutProps {
   children: ReactNode;
   title?: string;
 }
 
-const Layout = ({ children, title = "Weather App" }: LayoutProps) => {
+const Layout = ({ children, title = 'Weather App' }: LayoutProps) => {
   return (
     <>
       <Head>

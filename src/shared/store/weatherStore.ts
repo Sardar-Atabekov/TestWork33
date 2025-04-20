@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import { CurrentWeather } from "../types/weather";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { CurrentWeather } from '../types/weather';
 
 interface WeatherState {
   favorites: CurrentWeather[];
@@ -12,7 +12,7 @@ interface WeatherState {
 
 // SSR-safe storage selection
 const getStorage = () =>
-  typeof window !== "undefined"
+  typeof window !== 'undefined'
     ? createJSONStorage(() => localStorage) // ✅ оборачиваем localStorage
     : createJSONStorage(() => ({
         getItem: async () => null,
@@ -42,8 +42,8 @@ export const useWeatherStore = create<WeatherState>()(
         })),
     }),
     {
-      name: "weather-storage",
+      name: 'weather-storage',
       storage: getStorage(), // ✅ теперь типы совпадают
-    },
-  ),
+    }
+  )
 );

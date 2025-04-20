@@ -1,9 +1,9 @@
-import React from "react";
-import Link from "next/link";
-import { useWeatherStore } from "../store/weatherStore";
-import { CurrentWeather } from "../types/weather";
-import styles from "../styles/WeatherCard.module.scss";
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import { useWeatherStore } from '@shared/store/weatherStore';
+import { CurrentWeather } from '@shared/types/weather';
+import styles from '@shared/styles/WeatherCard.module.scss';
+import Image from 'next/image';
 
 interface WeatherCardProps {
   weather: CurrentWeather;
@@ -19,11 +19,11 @@ const WeatherCard = ({
 
   // Format date
   const date = new Date();
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   }).format(date);
 
   // Get weather icon URL
@@ -44,16 +44,16 @@ const WeatherCard = ({
           {weather.name}, {weather.sys.country}
         </h2>
         <button
-          className={`btn ${isFavorite ? "btn-warning" : "btn-outline-warning"} ${styles.favoriteButton}`}
+          className={`btn ${isFavorite ? 'btn-warning' : 'btn-outline-warning'} ${styles.favoriteButton}`}
           onClick={toggleFavorite}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
             viewBox="0 0 24 24"
-            fill={isFavorite ? "currentColor" : "none"}
+            fill={isFavorite ? 'currentColor' : 'none'}
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
