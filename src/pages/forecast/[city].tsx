@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getForecast, getCurrentWeather } from '../shared/api/api';
+import { getForecast, getCurrentWeather } from '@shared/api/api';
 import {
   ForecastItem,
   WeatherForecast,
   CurrentWeather,
-} from '../shared/types/weather';
+} from '@shared/types/weather';
 import ForecastCard from '@shared/ui/ForecastCard';
 import WeatherCard from '@shared/ui/WeatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
