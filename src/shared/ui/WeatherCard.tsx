@@ -37,6 +37,7 @@ const WeatherCard = ({
     }
   };
 
+  console.log('WeatherCard', weather);
   return (
     <div className={`card ${styles.weatherCard}`}>
       <div className="card-header d-flex justify-content-between align-items-center">

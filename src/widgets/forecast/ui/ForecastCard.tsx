@@ -1,6 +1,6 @@
 import React from 'react';
-import { ForecastItem } from './../types/weather';
-import styles from './../../shared/styles/ForecastCard.module.scss';
+import { ForecastItem } from '@shared/types/weather';
+import styles from './ForecastCard.module.scss';
 import Image from 'next/image';
 
 interface ForecastCardProps {
@@ -30,7 +30,7 @@ const ForecastCard = ({ forecast }: ForecastCardProps) => {
     <div className={`card ${styles.forecastCard}`}>
       <div className="card-body">
         <h5 className="card-title">
-          {day}, {formattedDate}
+          {day}, {formattedDate}время выполняется
         </h5>
         <p className="text-muted">{time}</p>
         <div className={styles.forecastMain}>

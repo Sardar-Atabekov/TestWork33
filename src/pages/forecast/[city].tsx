@@ -7,7 +7,7 @@ import {
   WeatherForecast,
   CurrentWeather,
 } from '@shared/types/weather';
-import ForecastCard from '@shared/ui/ForecastCard';
+import ForecastCard from '@widgets/forecast';
 import WeatherCard from '@shared/ui/WeatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';

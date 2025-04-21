@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import SearchBar from '../shared/ui/SearchBar';
+import { SearchBar } from '@widgets/search-bar';
 import WeatherCard from '@shared/ui/WeatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';

@@ -23,7 +23,8 @@
       "@entities/*": ["src/entities/*"],
       "@features/*": ["src/features/*"],
       "@widgets/*": ["src/widgets/*"],
-      "@processes/*": ["src/processes/*"]
+      "@processes/*": ["src/processes/*"],
+      "@styles/*": ["src/styles/*"]
     },
     "plugins": [
       {
