@@ -36,16 +36,21 @@
 ## 🗂️ Структура проекта
 
 ```bash
-├── components/        # Переиспользуемые UI-компоненты
-├── pages/             # Страницы Next.js
-├── store/             # Управление состоянием (Zustand)
-├── styles/            # Глобальные и модульные стили
-├── types/             # Типы TypeScript
-├── utils/             # Утилиты и вспомогательные функции
-├── public/            # Статические файлы
-├── next.config.js     # Конфигурация Next.js
-├── tsconfig.json      # Конфигурация TypeScript
-└── package.json       # Зависимости и скрипты
+├── src/
+│   ├── pages/          # Страницы Next.js
+│   ├── shared/         # Общие модули: компоненты, утилиты, хуки и т.д.
+│   ├── styles/         # SCSS-стили (глобальные и модульные)
+│   └── widgets/        # Отдельные виджеты/блоки интерфейса
+├── .eslintrc.js        # Конфигурация ESLint
+├── .gitignore          # Исключения для Git
+├── generated-icon.png  # Сгенерированная иконка
+├── next-env.d.ts       # Типы среды Next.js
+├── next.config.js      # Конфигурация Next.js
+├── package.json        # Зависимости и скрипты
+├── package-lock.json   # Лок-файл npm
+├── prettier.config.js  # Конфигурация Prettier
+└── tsconfig.json       # Конфигурация TypeScript
+
 ```
 
 ## ⚙️ Скрипты
