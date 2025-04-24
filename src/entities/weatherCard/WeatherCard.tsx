@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { useWeatherStore } from '@shared/store/weatherStore';
+import Image from 'next/image';
+import Favorite from '@features/favorite/favorite';
 import { CurrentWeather } from '@shared/types/weather';
 import styles from '@shared/styles/WeatherCard.module.scss';
-import Image from 'next/image';
-
 interface WeatherCardProps {
   weather: CurrentWeather;
   showForecastLink?: boolean;
@@ -14,9 +13,6 @@ const WeatherCard = ({
   weather,
   showForecastLink = true,
 }: WeatherCardProps) => {
-  const { addFavorite, removeFavorite, favorites } = useWeatherStore();
-  const isFavorite = favorites.some((fav) => fav.id === weather.id);
-
   // Format date
   const date = new Date();
   const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -29,14 +25,6 @@ const WeatherCard = ({
   // Get weather icon URL
   const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
 
-  const toggleFavorite = () => {
-    if (isFavorite) {
-      removeFavorite(weather.id);
-    } else {
-      addFavorite(weather);
-    }
-  };
-
   console.log('WeatherCard', weather);
   return (
     <div className={`card ${styles.weatherCard}`}>
@@ -44,25 +32,7 @@ const WeatherCard = ({
         <h2 className="mb-0">
           {weather.name}, {weather.sys.country}
         </h2>
-        <button
-          className={`btn ${isFavorite ? 'btn-warning' : 'btn-outline-warning'} ${styles.favoriteButton}`}
-          onClick={toggleFavorite}
-          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill={isFavorite ? 'currentColor' : 'none'}
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          </svg>
-        </button>
+        <Favorite weather={weather} />
       </div>
       <div className="card-body">
         <p className="text-muted">{formattedDate}</p>

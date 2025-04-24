@@ -9,15 +9,7 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   }
 
-  .favoriteButton {
-    svg {
-      transition: transform 0.3s ease;
-    }
 
-    &:hover svg {
-      transform: scale(1.2);
-    }
-  }
 }
 
 .weatherMain {

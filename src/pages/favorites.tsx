@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useWeatherStore } from '../shared/store/weatherStore';
-import WeatherCard from '@shared/ui/WeatherCard';
+import WeatherCard from '@entities/weatherCard/WeatherCard';
 import { getCurrentWeather } from '@shared/api/api';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';

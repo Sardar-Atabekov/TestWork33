@@ -8,7 +8,7 @@ import {
   CurrentWeather,
 } from '@shared/types/weather';
 import ForecastCard from '@widgets/forecast';
-import WeatherCard from '@shared/ui/WeatherCard';
+import WeatherCard from '@entities/weatherCard/WeatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 // import styles from "../@shared/styles/Home.module.scss";
