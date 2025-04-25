@@ -7,5 +7,3 @@ export const formattedDate = (date = new Date()) => {
     day: 'numeric',
   }).format(date);
 };
-
-

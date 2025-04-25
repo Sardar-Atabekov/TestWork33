@@ -21,8 +21,6 @@ export const getCurrentWeather = async (
     const response = await weatherApi.get('/weather', {
       params: { q: city },
     });
-    console.log('Current Weather API_KEY:', API_KEY); // Debugging line
-    console.log('Current Weather Response:', response.data); // Debugging line
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
