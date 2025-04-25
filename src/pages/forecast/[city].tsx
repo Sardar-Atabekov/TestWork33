@@ -4,6 +4,7 @@ import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import { useForecast } from '@features/forecast/useForecast';
+import { ChevronLeft } from 'lucide-react';
 
 export default function ForecastPage() {
   const { currentWeather, groupedForecast, loading, error } = useForecast();
@@ -27,20 +28,17 @@ export default function ForecastPage() {
           href={`/?city=${encodeURIComponent(currentWeather.name)}`}
           className="btn btn-outline-primary"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+          <ChevronLeft
+            width={16}
+            height={16}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
             className="me-1"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          />
           Back to Current Weather
         </Link>
       </div>

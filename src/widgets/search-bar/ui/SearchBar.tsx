@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SearchBar.module.scss';
+import { Search } from 'lucide-react';
 
 interface SearchBarProps {
   onSearch?: (city: string) => void;
@@ -39,21 +40,17 @@ const SearchBar = ({ onSearch, defaultValue = '' }: SearchBarProps) => {
           type="submit"
           disabled={!city.trim()}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+          <Search
+            width={16}
+            height={16}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
             className="me-1"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
+          />
           Search
         </button>
       </div>
