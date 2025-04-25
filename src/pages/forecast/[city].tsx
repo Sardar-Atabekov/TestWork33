@@ -7,7 +7,7 @@ import {
   WeatherForecast,
   CurrentWeather,
 } from '@shared/types/weather';
-import ForecastCard from '@widgets/forecast';
+import ForecastCard from '@entities/forecast';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
@@ -126,9 +126,9 @@ export default function ForecastPage() {
             })}
           </h3>
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            {items.map((item, index) => (
-              <div key={index} className="col">
-                <ForecastCard forecast={item} />
+            {items.map((item) => (
+              <div key={item.dt} className="col">
+                <ForecastCard forecast={{ ...item, id: item.dt }} />
               </div>
             ))}
           </div>

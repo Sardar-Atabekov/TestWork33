@@ -1,74 +1,115 @@
-# TestWork33
+# WeatherWizard 🌤️
 
-Тестовое задание, реализованное с использованием Next.js, TypeScript, Zustand и SCSS.
-Проект представляет собой приложение с базовой архитектурой и минимальной конфигурацией.
+A modern weather application built with Next.js, TypeScript, and Zustand. WeatherWizard provides real-time weather information, forecasts, and interactive weather maps with a beautiful and intuitive user interface.
 
-## 📦 Стек технологий
+## 📦 Tech Stack
 
-- Next.js
-- TypeScript
-- SCSS (Sass)
-- Zustand
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: SCSS (Sass)
+- **State Management**: Zustand
+- **API Integration**: OpenWeatherMap API
+- **Testing**: Jest & React Testing Library
 
-## 🚀 Установка и запуск
+## 🚀 Getting Started
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Sardar-Atabekov/TestWork33.git
-   cd TestWork33
+   git clone https://github.com/Sardar-Atabekov/WeatherWizard.git
+   cd WeatherWizard
    ```
 
-2. Установите зависимости:
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Запустите приложение в режиме разработки:
+3. Create a `.env.local` file in the root directory and add your OpenWeatherMap API key:
+
+   ```env
+   NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
+   ```
+
+4. Run the development server:
 
    ```bash
    npm run dev
    ```
 
-4. Откройте [http://localhost:3000](http://localhost:3000) в браузере для просмотра.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🗂️ Структура проекта
+## 🗂️ Project Structure
 
 ```bash
 src/
-├── app/              # Инициализация, маршруты, глобальные провайдеры
-├── pages/            # Next.js-страницы
-├── widgets/          # UI-блоки, объединяющие сущности и фичи
-├── features/         # Функциональные модули (например, auth, toggleTheme и т.д.)
-├── entities/         # Бизнес-сущности (User, Product, Post и т.д.)
+├── app/              # App initialization, routes, global providers
+│   ├── layout.tsx    # Root layout
+│   └── page.tsx      # Home page
+├── pages/            # Next.js pages
+├── widgets/          # UI blocks combining entities and features
+│   └── WeatherCard/  # Weather information display
+├── features/         # Functional modules
+│   ├── weather/      # Weather data fetching and processing
+│   └── theme/        # Theme switching functionality
+├── entities/         # Business entities
+│   └── Weather/      # Weather data models and components
 ├── shared/
-│   ├── ui/           # Базовые переиспользуемые UI-компоненты
-│   ├── lib/          # Утилиты, хелперы
-│   ├── config/       # Конфигурации (например, маршруты, настройки)
-│   └── types/        # Общие типы
-├── .eslintrc.js        # Конфигурация ESLint
-├── .gitignore          # Исключения для Git
-├── generated-icon.png  # Сгенерированная иконка
-├── next-env.d.ts       # Типы среды Next.js
-├── next.config.js      # Конфигурация Next.js
-├── package.json        # Зависимости и скрипты
-├── package-lock.json   # Лок-файл npm
-├── prettier.config.js  # Конфигурация Prettier
-└── tsconfig.json       # Конфигурация TypeScript
-
+│   ├── ui/           # Reusable UI components
+│   │   ├── Button/   # Custom button component
+│   │   └── Input/    # Custom input component
+│   ├── lib/          # Utilities and helpers
+│   ├── config/       # Configuration files
+│   └── types/        # TypeScript type definitions
+├── .eslintrc.js      # ESLint configuration
+├── .gitignore        # Git ignore rules
+├── next.config.js    # Next.js configuration
+├── package.json      # Project dependencies
+└── tsconfig.json     # TypeScript configuration
 ```
 
-## ⚙️ Скрипты
+## ⚙️ Available Scripts
 
-- `npm run dev` — запуск в режиме разработки
-- `npm run build` — сборка проекта
-- `npm run start` — запуск собранного проекта
+- `npm run dev` — Start development server
+- `npm run build` — Build production bundle
+- `npm run start` — Start production server
+- `npm run test` — Run tests
+- `npm run lint` — Run ESLint
+- `npm run format` — Format code with Prettier
 
-## 🧑‍💻 Автор
+## 🧪 Testing
+
+The project uses Jest and React Testing Library for testing. Run tests with:
+
+```bash
+npm run test
+```
+
+## 🔧 Environment Variables
+
+The following environment variables are required:
+
+- `NEXT_PUBLIC_OPENWEATHER_API_KEY`: Your OpenWeatherMap API key
+
+## 📝 Features
+
+- Real-time weather updates
+- 5-day weather forecast
+- Interactive weather maps
+- Location-based weather search
+- Dark/Light theme support
+- Responsive design
+- Unit tests
+
+## 👨‍💻 Author
 
 [Sardar Atabekov](https://github.com/Sardar-Atabekov)
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ---
 
-Проект выполнен в рамках тестового задания. Структура и функциональность могут быть расширены...
+Built with ❤️ using Next.js and TypeScript
