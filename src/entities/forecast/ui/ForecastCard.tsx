@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { ForecastItem } from '../model/types';
 import styles from './ForecastCard.module.scss';
 import { DetailItem } from '@entities/weatherCard';
+import { ForecastItem } from '@shared/types/weather';
 import { day, formattedDay, time } from '@shared/utils/date';
 import getWeatherIconUrl from '@shared/lib/getWeatherIconUrl';
 

@@ -1,4 +1,4 @@
-import { FavoritesList } from '@features/favorites/ui/FavoritesList';
+import { FavoritesList } from '@entities/favorites/ui/FavoritesList';
 
 export default function FavoritesPage() {
   return (

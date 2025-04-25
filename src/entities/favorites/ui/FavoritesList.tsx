@@ -4,7 +4,7 @@ import styles from './favorites.module.scss';
 import { RefreshButton } from '@shared/ui/buttons';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
-import { useFavorites } from '../model/useFavorites';
+import { useFavorites } from '../../../features/favorites/model/useFavorites';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 
 export const FavoritesList = () => {

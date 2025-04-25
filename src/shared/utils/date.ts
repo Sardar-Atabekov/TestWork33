@@ -4,7 +4,7 @@
  * @param date - The date to format. Defaults to current date if not provided
  * @returns Formatted date string
  */
-const formattedDate = (date: Date = new Date()): string => {
+const formattedDate = (date = new Date()): string => {
   if (!(date instanceof Date) || isNaN(date.getTime())) {
     throw new Error('Invalid date provided');
   }

@@ -1,81 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getForecast, getCurrentWeather } from '@shared/api/api';
-import {
-  ForecastItem,
-  WeatherForecast,
-  CurrentWeather,
-} from '@shared/types/weather';
-import ForecastCard from '@entities/forecast';
+import { ForecastList } from '@widgets/forecast';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
-// import styles from "../@shared/styles/Home.module.scss";
+import { useForecast } from '@features/forecast/useForecast';
 
 export default function ForecastPage() {
-  const router = useRouter();
-  const { city } = router.query;
-
-  const [forecast, setForecast] = useState<WeatherForecast | null>(null);
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
-    null
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof city === 'string') {
-      fetchData(city);
-    }
-  }, [city]);
-
-  const fetchData = async (cityName: string) => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      // Fetch both current weather and forecast data
-      const [forecastData, weatherData] = await Promise.all([
-        getForecast(cityName),
-        getCurrentWeather(cityName),
-      ]);
-
-      setForecast(forecastData);
-      setCurrentWeather(weatherData);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'An unknown error occurred'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Group forecast data by day
-  const groupForecastByDay = (forecastList: ForecastItem[]) => {
-    const grouped: Record<string, ForecastItem[]> = {};
-
-    forecastList.forEach((item) => {
-      const date = new Date(item.dt * 1000);
-      const day = date.toISOString().split('T')[0];
-
-      if (!grouped[day]) {
-        grouped[day] = [];
-      }
-
-      grouped[day].push(item);
-    });
-
-    return grouped;
-  };
+  const { currentWeather, groupedForecast, loading, error } = useForecast();
 
   if (loading) return <LoadingSpinner message="Loading forecast data..." />;
   if (error) return <ErrorMessage message={error} />;
-  if (!forecast || !currentWeather)
+  if (!currentWeather)
     return <ErrorMessage message="No forecast data available" />;
-
-  const groupedForecast = groupForecastByDay(forecast.list);
 
   return (
     <div className="container">
@@ -113,27 +49,7 @@ export default function ForecastPage() {
         <WeatherCard weather={currentWeather} showForecastLink={false} />
       </div>
 
-      <h2 className="mb-4">5-Day Forecast</h2>
-
-      {Object.entries(groupedForecast).map(([day, items]) => (
-        <div key={day} className="mb-5">
-          <h3 className="mb-3">
-            {new Date(day).toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </h3>
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {items.map((item) => (
-              <div key={item.dt} className="col">
-                <ForecastCard forecast={{ ...item, id: item.dt }} />
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+      <ForecastList forecast={groupedForecast} />
     </div>
   );
 }

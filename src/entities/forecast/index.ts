@@ -1,2 +1,4 @@
 import ForecastCard from './ui/ForecastCard';
-export default ForecastCard;
+import { ForecastList } from './ui/ForecastList';
+
+export { ForecastCard, ForecastList };
