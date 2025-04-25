@@ -1,0 +1,113 @@
+.weatherCard {
+  background-color: #e6f2f7; // нежно-голубой фон всей карточки
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+}
+
+.weatherDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4faff; // светло-синий/голубоватый
+  border-radius: 10px;
+  padding: 1rem;
+  padding-bottom: 0.2rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  div {
+    span {
+      display: block;
+      font-size: 0.85rem;
+    }
+  }
+
+  p {
+    font-weight: 500;
+  }
+}
+
+.iconHumidity {
+  color: #3399ff;
+}
+
+.iconWind {
+  color: #00b8d9;
+}
+
+.iconPressure {
+  color: #5e72e4;
+}
+
+.iconVisibility {
+  color: #66c2ff;
+}
+
+.weatherMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+
+  .temperature {
+    text-align: center;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      color: #6c757d;
+      margin-bottom: 0;
+    }
+  }
+
+  .weatherIcon {
+    text-align: center;
+
+    img {
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      color: #343a40;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .weatherMain {
+    flex-direction: column;
+
+    .temperature,
+    .weatherIcon {
+      margin-bottom: 1rem;
+    }
+  }
+}

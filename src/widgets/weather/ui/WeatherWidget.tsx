@@ -5,7 +5,7 @@ import { useWeatherStore } from '@shared/store/weatherStore';
 import { CurrentWeather } from '@shared/types/weather';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';
-import WeatherCard from '@entities/weatherCard/WeatherCard';
+import { WeatherCard } from '@entities/weatherCard';
 import styles from '@shared/styles/Home.module.scss';
 
 interface WeatherWidgetProps {
