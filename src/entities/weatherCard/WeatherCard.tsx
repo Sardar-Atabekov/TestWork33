@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Favorite from '@features/favorite/favorite';
+import { Favorite } from '@features/favorite';
 import { CurrentWeather } from '@shared/types/weather';
+import { formattedDate } from '@shared/utils';
 import styles from '@shared/styles/WeatherCard.module.scss';
 interface WeatherCardProps {
   weather: CurrentWeather;
@@ -13,15 +14,6 @@ const WeatherCard = ({
   weather,
   showForecastLink = true,
 }: WeatherCardProps) => {
-  // Format date
-  const date = new Date();
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }).format(date);
-
   // Get weather icon URL
   const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
 
@@ -35,7 +27,7 @@ const WeatherCard = ({
         <Favorite weather={weather} />
       </div>
       <div className="card-body">
-        <p className="text-muted">{formattedDate}</p>
+        <p className="text-muted">{formattedDate()}</p>
         <div className={styles.weatherMain}>
           <div className={styles.temperature}>
             <h1>{Math.round(weather.main.temp)}°C</h1>
