@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import App from './_app';
 import { AppProps } from 'next/app';
 import { Router } from 'next/router';
-import { useEffect } from 'react';
 
 // Mock next/router
 jest.mock('next/router', () => ({
@@ -19,13 +18,6 @@ jest.mock('next/router', () => ({
 jest.mock('bootstrap/dist/js/bootstrap.bundle.min.js', () => ({}), {
   virtual: true,
 });
-
-// Extend Window interface
-declare global {
-  interface Window {
-    import: (module: string) => Promise<any>;
-  }
-}
 
 describe('App Component', () => {
   const mockPageProps: AppProps = {
@@ -83,6 +75,9 @@ describe('App Component', () => {
     effectCallback();
 
     // Verify that the effect tried to import Bootstrap
-    expect(require('bootstrap/dist/js/bootstrap.bundle.min.js')).toBeDefined();
+    const bootstrapModule = jest.requireMock(
+      'bootstrap/dist/js/bootstrap.bundle.min.js'
+    );
+    expect(bootstrapModule).toBeDefined();
   });
 });
