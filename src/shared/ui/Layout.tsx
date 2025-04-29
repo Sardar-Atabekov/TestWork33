@@ -7,9 +7,9 @@ interface LayoutProps {
   title?: string;
 }
 
-const Layout = ({ children, title = 'Weather App' }: LayoutProps) => {
+const Layout: React.FC<LayoutProps> = ({ children, title = 'Weather App' }) => {
   return (
-    <>
+    <div data-testid="layout">
       <Head>
         <title>{title}</title>
         <meta
@@ -26,7 +26,7 @@ const Layout = ({ children, title = 'Weather App' }: LayoutProps) => {
           Weather App © {new Date().getFullYear()} | Powered by OpenWeatherMap
         </p>
       </footer>
-    </>
+    </div>
   );
 };
 

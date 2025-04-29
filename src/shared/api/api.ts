@@ -4,7 +4,6 @@ import { CurrentWeather, WeatherForecast } from '../types/weather';
 const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY || '';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-console.log('API_KEY:', API_KEY); // Debugging line
 // Creating axios instance with common configurations
 const weatherApi = axios.create({
   baseURL: BASE_URL,
@@ -12,6 +11,18 @@ const weatherApi = axios.create({
     appid: API_KEY,
     units: 'metric', // Temperature in Celsius
   },
+});
+
+// Add request interceptor for logging
+weatherApi.interceptors.request.use((config) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('API Request:', {
+      url: config.url,
+      method: config.method,
+      params: config.params,
+    });
+  }
+  return config;
 });
 
 export const getCurrentWeather = async (
