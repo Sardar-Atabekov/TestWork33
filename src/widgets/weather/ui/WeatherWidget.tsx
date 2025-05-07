@@ -11,16 +11,16 @@ interface WeatherWidgetProps {
 }
 
 const WeatherWidget = ({ defaultCity }: WeatherWidgetProps) => {
-  const { weather, loading, error, fetchWeather } =
-    useFetchWeather(defaultCity);
+  const { weather, loading, error, fetchWeather } = useFetchWeather();
 
   useCitySync({ weather });
 
   useEffect(() => {
     if (defaultCity) {
-      fetchWeather();
+      fetchWeather(defaultCity);
     }
-  }, [defaultCity, fetchWeather]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultCity]);
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;

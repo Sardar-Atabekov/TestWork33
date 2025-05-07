@@ -14,7 +14,7 @@ export default async function handler(
   }
 
   try {
-    const weatherData = await getCurrentWeather(String(city)); // Ваш метод получения данных о погоде
+    const weatherData = await getCurrentWeather(String(city));
     return res.status(200).json(weatherData);
   } catch (error) {
     return res.status(500).json({

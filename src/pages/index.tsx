@@ -9,20 +9,28 @@ export default function Home() {
   const { city } = useRouter().query;
   const { lastSearchedCity } = useWeatherStore();
 
-  // Изначально используем lastSearchedCity, если city не задан в URL
   const [defaultCity, setDefaultCity] = useState<string>(
     typeof city === 'string' ? city : (lastSearchedCity ?? '')
   );
 
   useEffect(() => {
     if (typeof city === 'string' && city !== lastSearchedCity) {
-      setDefaultCity(city); // Обновляем city, если оно приходит в URL
+      setDefaultCity(city);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city]);
 
+  useEffect(() => {
+    if (lastSearchedCity) {
+      setDefaultCity(lastSearchedCity);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Логирование значений для дебага
 
+  console.log('City from router:', city);
+  console.log('Last searched city from store:', lastSearchedCity);
+  console.log('Default city state:', defaultCity);
   return (
     <div className={styles.homeContainer}>
       <div className="page-header">
