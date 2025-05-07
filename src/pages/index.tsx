@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { SearchBar } from '@widgets/search-bar';
 import { WeatherWidget } from '@widgets/weather';
 import { useWeatherStore } from '@shared/store/weatherStore';
@@ -8,7 +9,21 @@ export default function Home() {
   const { city } = useRouter().query;
   const { lastSearchedCity } = useWeatherStore();
 
-  const defaultCity = typeof city === 'string' ? city : lastSearchedCity || '';
+  // Изначально используем lastSearchedCity, если city не задан в URL
+  const [defaultCity, setDefaultCity] = useState<string>(
+    typeof city === 'string' ? city : lastSearchedCity || ''
+  );
+
+  useEffect(() => {
+    if (typeof city === 'string' && city !== lastSearchedCity) {
+      setDefaultCity(city); // Обновляем city, если оно приходит в URL
+    }
+  }, [city]);
+
+  // Логирование значений для дебага
+  console.log('defaultCity', defaultCity);
+  console.log('city', city);
+  console.log('lastSearchedCity', lastSearchedCity);
 
   return (
     <div className={styles.homeContainer}>
@@ -17,9 +32,9 @@ export default function Home() {
         <p>Check current weather and forecasts for any city in the world</p>
       </div>
 
-      <div className={styles.searchSection}>
+      <section className={styles.searchSection}>
         <SearchBar defaultValue={defaultCity} />
-      </div>
+      </section>
 
       <WeatherWidget defaultCity={defaultCity} />
     </div>
