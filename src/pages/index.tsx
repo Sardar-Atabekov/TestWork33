@@ -11,19 +11,17 @@ export default function Home() {
 
   // Изначально используем lastSearchedCity, если city не задан в URL
   const [defaultCity, setDefaultCity] = useState<string>(
-    typeof city === 'string' ? city : lastSearchedCity || ''
+    typeof city === 'string' ? city : (lastSearchedCity ?? '')
   );
 
   useEffect(() => {
     if (typeof city === 'string' && city !== lastSearchedCity) {
       setDefaultCity(city); // Обновляем city, если оно приходит в URL
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city]);
 
   // Логирование значений для дебага
-  console.log('defaultCity', defaultCity);
-  console.log('city', city);
-  console.log('lastSearchedCity', lastSearchedCity);
 
   return (
     <div className={styles.homeContainer}>
