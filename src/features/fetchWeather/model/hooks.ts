@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { getCurrentWeather } from './../lib/api';
 import { CurrentWeather } from '@shared/types/weather';
 import { useWeatherStore } from '@shared/store/weatherStore';
-import router from 'next/router';
 
 export const useFetchWeather = (city: string) => {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);
