@@ -1,36 +1,31 @@
-import { useRouter } from 'next/router';
+// pages/index.tsx
+import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { SearchBar } from '@widgets/search-bar';
 import { WeatherWidget } from '@widgets/weather';
-import { useWeatherStore } from '@shared/store/weatherStore';
 import styles from '@shared/styles/Home.module.scss';
+import { useWeatherStore } from '@shared/store/weatherStore';
+import { useRouter } from 'next/router';
 
-export default function Home() {
-  const { city } = useRouter().query;
+interface HomeProps {
+  initialCity: string;
+}
+
+export default function Home({ initialCity }: HomeProps) {
   const { lastSearchedCity } = useWeatherStore();
-
-  const [defaultCity, setDefaultCity] = useState<string>(
-    typeof city === 'string' ? city : (lastSearchedCity ?? '')
-  );
+  const [defaultCity, setDefaultCity] = useState<string>('');
+  const { city } = useRouter().query;
 
   useEffect(() => {
-    if (typeof city === 'string' && city !== lastSearchedCity) {
+    if (typeof city === 'string') {
       setDefaultCity(city);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city]);
-
-  useEffect(() => {
-    if (lastSearchedCity) {
+    } else if (lastSearchedCity) {
       setDefaultCity(lastSearchedCity);
+    } else {
+      setDefaultCity(initialCity);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // Логирование значений для дебага
+  }, [city, lastSearchedCity, initialCity]);
 
-  console.log('City from router:', city);
-  console.log('Last searched city from store:', lastSearchedCity);
-  console.log('Default city state:', defaultCity);
   return (
     <div className={styles.homeContainer}>
       <div className="page-header">
@@ -46,3 +41,15 @@ export default function Home() {
     </div>
   );
 }
+
+// SSR
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cityFromQuery = context.query.city;
+  const initialCity = typeof cityFromQuery === 'string' ? cityFromQuery : '';
+
+  return {
+    props: {
+      initialCity,
+    },
+  };
+};

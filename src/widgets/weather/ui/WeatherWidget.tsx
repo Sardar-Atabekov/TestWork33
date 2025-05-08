@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useFetchWeather } from '@features/fetchWeather';
-import { useCitySync } from '@features/useCity';
 import LoadingSpinner from '@shared/ui/LoadingSpinner';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
@@ -11,13 +10,12 @@ interface WeatherWidgetProps {
 }
 
 const WeatherWidget = ({ defaultCity }: WeatherWidgetProps) => {
-  const { weather, loading, error, fetchWeather } = useFetchWeather();
-
-  useCitySync({ weather });
+  const { weather, loading, error, fetchWeather } =
+    useFetchWeather(defaultCity);
 
   useEffect(() => {
     if (defaultCity) {
-      fetchWeather(defaultCity);
+      fetchWeather();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultCity]);
