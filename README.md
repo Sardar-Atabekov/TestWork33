@@ -16,7 +16,7 @@ A modern weather application built with Next.js, TypeScript, and Zustand. Weathe
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Sardar-Atabekov/WeatherWizard.git
+   git clone https://github.com/Sardar-Atabekov/TestWork33.git
    cd WeatherWizard
    ```
 
@@ -52,7 +52,6 @@ src/
 │   └── WeatherCard/  # Weather information display
 ├── features/         # Functional modules
 │   ├── weather/      # Weather data fetching and processing
-│   └── theme/        # Theme switching functionality
 ├── entities/         # Business entities
 │   └── Weather/      # Weather data models and components
 ├── shared/
@@ -98,7 +97,7 @@ The following environment variables are required:
 - 5-day weather forecast
 - Interactive weather maps
 - Location-based weather search
-- Dark/Light theme support
+<!-- - Dark/Light theme support -->
 - Responsive design
 - Unit tests
 
