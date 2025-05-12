@@ -38,9 +38,5 @@ jobs:
         run: npm test
 
       - name: Build project
-        run: |
-          npm run build
-          if [ $? -ne 0 ]; then
-            echo "Build failed"
-            exit 1
-          fi
+        run: npm run build
+
