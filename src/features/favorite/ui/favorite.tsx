@@ -1,39 +1,53 @@
-import React from 'react';
+import { useCallback, useState, KeyboardEvent } from 'react';
 import { Heart } from 'lucide-react';
-import styles from './favorite.module.scss';
-import { CurrentWeather } from '@shared/types/weather';
 import { useWeatherStore } from '@shared/store/weatherStore';
+import { CurrentWeather } from '@shared/types/weather';
+import styles from './favorite.module.scss';
 
-const Favorite: React.FC<{ weather: CurrentWeather }> = ({ weather }) => {
-  const favorites = useWeatherStore((state) => state.favorites);
-  const addFavorite = useWeatherStore((state) => state.addFavorite);
-  const removeFavorite = useWeatherStore((state) => state.removeFavorite);
+interface FavoriteProps {
+  weather: CurrentWeather;
+}
 
-  const isFavorite = favorites.some((fav) => fav.id === weather.id);
+const Favorite = ({ weather }: FavoriteProps) => {
+  const { favorites, addFavorite, removeFavorite } = useWeatherStore();
+  const [isFocused, setIsFocused] = useState(false);
 
-  const toggleFavorite = () => {
+  const isFavorite = favorites.some((item) => item.id === weather.id);
+
+  const toggleFavorite = useCallback(() => {
     if (isFavorite) {
       removeFavorite(weather.id);
     } else {
       addFavorite(weather);
     }
+  }, [isFavorite, weather, addFavorite, removeFavorite]);
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFavorite();
+    }
   };
 
   return (
     <button
-      className={`btn ${isFavorite ? 'btn-warning' : 'btn-outline-warning'} ${styles.favoriteButton}`}
+      type="button"
       onClick={toggleFavorite}
-      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      onKeyDown={handleKeyDown}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      className={`${styles.favoriteButton} ${isFavorite ? styles.active : ''} ${isFocused ? styles.focused : ''}`}
+      aria-label={
+        isFavorite
+          ? `Remove ${weather.name} from favorites`
+          : `Add ${weather.name} to favorites`
+      }
+      aria-pressed={isFavorite}
     >
       <Heart
-        width={16}
-        height={16}
-        viewBox="0 0 24 24"
-        fill={isFavorite ? 'currentColor' : 'none'}
-        stroke="currentColor"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        size={24}
+        className={isFavorite ? styles.favoriteIcon : ''}
+        aria-hidden="true"
       />
     </button>
   );

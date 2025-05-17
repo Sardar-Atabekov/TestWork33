@@ -10,8 +10,11 @@ import { WeatherMainInfo } from './WeatherMainInfo';
 const WeatherCard = React.memo(
   ({ weather, showForecastLink = true }: WeatherCardProps) => {
     return (
-      <div className={`card ${styles.weatherCard}`}>
-        <div
+      <article
+        className={`card ${styles.weatherCard}`}
+        aria-label={`Weather information for ${weather.name}, ${weather.sys.country}`}
+      >
+        <header
           className="card-header d-flex justify-content-between align-items-center"
           style={{ backgroundColor: 'transparent' }}
         >
@@ -19,12 +22,18 @@ const WeatherCard = React.memo(
             {weather.name}, {weather.sys.country}
           </h2>
           <Favorite weather={weather} />
-        </div>
+        </header>
         <div className="card-body">
-          <p className="text-muted">{formattedDate()}</p>
+          <p className="text-muted" aria-live="polite">
+            {formattedDate()}
+          </p>
           <WeatherMainInfo weather={weather} />
 
-          <div className={styles.weatherDetails}>
+          <div
+            className={styles.weatherDetails}
+            role="region"
+            aria-label="Weather details"
+          >
             <div className="row mt-3">
               <div className="col-md-3 col-6">
                 <DetailItem
@@ -54,13 +63,14 @@ const WeatherCard = React.memo(
               <Link
                 href={`/forecast/${encodeURIComponent(weather.name)}`}
                 className="btn btn-primary"
+                aria-label={`View 5-day forecast for ${weather.name}`} // Описание для скринридеров
               >
                 View 5-Day Forecast
               </Link>
             </div>
           )}
         </div>
-      </div>
+      </article>
     );
   }
 );

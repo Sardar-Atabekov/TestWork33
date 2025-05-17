@@ -7,7 +7,7 @@ interface ErrorMessageProps {
 
 const ErrorMessage = ({ message }: ErrorMessageProps) => {
   return (
-    <div className="alert alert-danger my-4" role="alert">
+    <div className="alert alert-danger my-4" role="alert" aria-live="assertive">
       <div className="d-flex align-items-center">
         <AlertTriangle
           width={24}

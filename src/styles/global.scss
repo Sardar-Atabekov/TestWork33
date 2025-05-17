@@ -1,6 +1,5 @@
 // Global styles
 
-// Import Bootstrap directly in _app.tsx, this file is for custom global styles
 html,
 body {
   background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
@@ -18,7 +17,6 @@ body {
   padding: 0 15px;
 }
 
-// Custom styling for the app
 .page-header {
   margin-bottom: 2rem;
   text-align: center;
@@ -55,6 +53,18 @@ body {
     margin: 0 auto 1.5rem;
     max-width: 450px;
   }
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 // Responsive adjustments

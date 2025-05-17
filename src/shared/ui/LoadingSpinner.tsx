@@ -1,18 +1,31 @@
 import React from 'react';
 
 interface LoadingSpinnerProps {
+  size?: 'small' | 'medium' | 'large';
   message?: string;
 }
 
 const LoadingSpinner = ({
-  message = 'Loading weather data...',
+  size = 'medium',
+  message = 'Loading...',
 }: LoadingSpinnerProps) => {
+  const spinnerSize = {
+    small: 'spinner-border-sm',
+    medium: '',
+    large: 'spinner-border-lg',
+  };
+
   return (
-    <div className="d-flex flex-column align-items-center justify-content-center my-5">
-      <div className="spinner-border text-primary mb-3" role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div
+      className="d-flex flex-column align-items-center justify-content-center p-4"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div className={`spinner-border text-primary ${spinnerSize[size]}`}>
+        <span className="visually-hidden">{message}</span>
       </div>
-      <p className="text-muted">{message}</p>
+      <p className="mt-2">{message}</p>
     </div>
   );
 };

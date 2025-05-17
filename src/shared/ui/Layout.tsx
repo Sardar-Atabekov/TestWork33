@@ -1,32 +1,46 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import Navbar from '@shared/ui/Navbar';
+import Navbar from './Navbar';
 
 interface LayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
   title?: string;
+  description?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, title = 'Weather App' }) => {
+const Layout = ({
+  children,
+  title = 'WeatherWizard - Weather Forecast App',
+  description = 'Get real-time weather information and forecasts for any city in the world',
+}: LayoutProps) => {
   return (
-    <div data-testid="layout">
+    <>
       <Head>
         <title>{title}</title>
-        <meta
-          name="description"
-          content="Weather app with forecast and favorites"
-        />
+        <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
-      <main className="container py-4">{children}</main>
-      <footer className="text-center py-4 border-top mt-4">
-        <p className="text-muted">
-          Weather App © {new Date().getFullYear()} | Powered by OpenWeatherMap
-        </p>
-      </footer>
-    </div>
+
+      <div className="d-flex flex-column min-vh-100">
+        <header>
+          <Navbar />
+        </header>
+
+        <main className="flex-grow-1 container py-4" id="main-content">
+          {children}
+        </main>
+
+        <footer className="bg-light py-3 text-center">
+          <div className="container">
+            <p className="mb-0">
+              &copy; {new Date().getFullYear()} WeatherWizard. All rights
+              reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </>
   );
 };
 
