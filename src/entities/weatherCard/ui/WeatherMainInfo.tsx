@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { CurrentWeather } from '@shared/types/weather';
 import styles from './WeatherCard.module.scss';
+import getWeatherIconUrl from '@shared/lib/getWeatherIconUrl';
 
 interface WeatherMainInfo {
   weather: CurrentWeather;
 }
 
 export const WeatherMainInfo = ({ weather }: WeatherMainInfo) => {
-  const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+  const { roundedTemp, roundedFeelsLike } = useMemo(() => {
+    return {
+      roundedTemp: Math.round(weather.main.temp),
+      roundedFeelsLike: Math.round(weather.main.feels_like),
+    };
+  }, [weather.main.temp, weather.main.feels_like]);
+
+  const iconUrl = useMemo(() => {
+    return getWeatherIconUrl(weather.weather[0].icon);
+  }, [weather.weather]);
 
   return (
     <div className={styles.weatherMain}>
       <div className={styles.temperature}>
-        <h1>{Math.round(weather.main.temp)}°C</h1>
-        <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
+        <h1>{roundedTemp}°C</h1>
+        <p>Feels like: {roundedFeelsLike}°C</p>
       </div>
       <div className={styles.weatherIcon}>
         <Image
