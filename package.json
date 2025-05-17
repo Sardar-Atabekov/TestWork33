@@ -8,10 +8,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
     "type-check": "tsc --noEmit",
+    "lint": "next lint",
+    "lint-fix": "next lint --fix",
     "format": "prettier --write .",
     "postinstall": "husky install",
+    "format-check": "prettier --check .",
     "style-check": "stylelint '**/*.{css,scss}'",
     "style-fix": "stylelint '**/*.{css,scss}' --fix"
   },
@@ -69,15 +71,15 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix --cache",
+      "prettier --write --color"
     ],
     "*.{css,scss}": [
-      "stylelint --fix",
-      "prettier --write"
+      "stylelint --fix --color",
+      "prettier --write --color"
     ],
     "*.{json,md,html}": [
-      "prettier --write"
+      "prettier --write --color"
     ]
   }
 }
