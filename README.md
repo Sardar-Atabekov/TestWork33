@@ -16,7 +16,7 @@ A modern weather application built with Next.js, TypeScript, and Zustand. Weathe
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Sardar-Atabekov/TestWork33.git
+   git clone https://github.com/Sardar-Atabekov/WeatherWizard.git
    cd WeatherWizard
    ```
 
