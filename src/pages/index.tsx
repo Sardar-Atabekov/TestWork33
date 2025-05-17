@@ -17,13 +17,20 @@ export default function Home({ initialCity }: HomeProps) {
   const { city } = useRouter().query;
 
   useEffect(() => {
+    let finalCity = '';
+
     if (typeof city === 'string') {
-      setDefaultCity(city);
+      finalCity = city;
     } else if (lastSearchedCity) {
-      setDefaultCity(lastSearchedCity);
+      finalCity = lastSearchedCity;
     } else {
-      setDefaultCity(initialCity);
+      finalCity = initialCity;
     }
+
+    if (finalCity !== defaultCity) {
+      setDefaultCity(finalCity);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, lastSearchedCity, initialCity]);
 
   return (

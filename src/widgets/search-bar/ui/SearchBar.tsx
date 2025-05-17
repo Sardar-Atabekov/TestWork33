@@ -13,7 +13,6 @@ const SearchBar = ({
   autoFocus = false,
 }: SearchBarProps) => {
   const [city, setCity] = useState(defaultValue);
-  const [isPending, setIsPending] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -30,12 +29,7 @@ const SearchBar = ({
 
       if (!trimmed) return;
 
-      setIsPending(true);
-      try {
-        await router.push(`/?city=${encodeURIComponent(trimmed)}`);
-      } finally {
-        setIsPending(false);
-      }
+      await router.push(`/?city=${encodeURIComponent(trimmed)}`);
     },
     [city, router]
   );
@@ -53,10 +47,7 @@ const SearchBar = ({
           aria-label="City name"
           required
         />
-        <SearchButton
-          isPending={isPending}
-          disabled={isPending || !city.trim()}
-        />
+        <SearchButton isPending={false} disabled={!city.trim()} />
       </div>
     </form>
   );

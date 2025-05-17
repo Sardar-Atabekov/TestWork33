@@ -21,7 +21,9 @@ export const useFetchWeather = (city: string) => {
     } catch (err: unknown) {
       let errorMessage = 'Failed to fetch weather';
       if (err instanceof Error) {
-        errorMessage = err.message;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
+        errorMessage = err.response?.data?.error || err.message;
       }
       setError(errorMessage);
       setWeather(null);
