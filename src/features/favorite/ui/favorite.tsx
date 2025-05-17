@@ -5,7 +5,10 @@ import { CurrentWeather } from '@shared/types/weather';
 import { useWeatherStore } from '@shared/store/weatherStore';
 
 const Favorite: React.FC<{ weather: CurrentWeather }> = ({ weather }) => {
-  const { addFavorite, removeFavorite, favorites } = useWeatherStore();
+  const favorites = useWeatherStore((state) => state.favorites);
+  const addFavorite = useWeatherStore((state) => state.addFavorite);
+  const removeFavorite = useWeatherStore((state) => state.removeFavorite);
+
   const isFavorite = favorites.some((fav) => fav.id === weather.id);
 
   const toggleFavorite = () => {

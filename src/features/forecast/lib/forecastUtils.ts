@@ -1,41 +1,35 @@
+import { useMemo } from 'react';
 import { ForecastItem } from '@shared/types/weather';
 
-// Group forecast data by day
-const groupForecastByDay = (
-  forecastList: ForecastItem[]
-): Record<string, ForecastItem[]> => {
-  const grouped: Record<string, ForecastItem[]> = {};
+export const useForecastByDay = (forecastList: ForecastItem[]) => {
+  return useMemo(() => {
+    if (!forecastList?.length) return [];
 
-  forecastList.forEach((item) => {
-    // Convert timestamp to local date string
-    const date = new Date(item.dt * 1000);
-    const day = date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+    const groupedByDay: Record<string, ForecastItem[]> = {};
+
+    forecastList.forEach((item) => {
+      const date = new Date(item.dt * 1000);
+      const day = date.toISOString().split('T')[0]; // YYYY-MM-DD
+
+      if (!groupedByDay[day]) {
+        groupedByDay[day] = [];
+      }
+
+      groupedByDay[day].push(item);
     });
 
-    if (!grouped[day]) {
-      grouped[day] = [];
-    }
-
-    grouped[day].push(item);
-  });
-
-  // Sort the days chronologically
-  const sortedDays = Object.keys(grouped).sort();
-  const sortedGrouped: Record<string, ForecastItem[]> = {};
-
-  sortedDays.forEach((day) => {
-    // Sort items by time in 24-hour format
-    sortedGrouped[day] = grouped[day].sort((a, b) => {
-      const timeA = new Date(a.dt * 1000).getHours();
-      const timeB = new Date(b.dt * 1000).getHours();
-      return timeA - timeB;
-    });
-  });
-
-  return sortedGrouped;
+    return Object.entries(groupedByDay).map(([day, items]) => ({
+      day,
+      items,
+      avgTemp:
+        items.reduce((sum, item) => sum + item.main.temp, 0) / items.length,
+      minTemp: Math.min(...items.map((item) => item.main.temp_min)),
+      maxTemp: Math.max(...items.map((item) => item.main.temp_max)),
+      mainCondition:
+        items.find((item) => {
+          const hour = new Date(item.dt * 1000).getHours();
+          return hour >= 11 && hour <= 13;
+        })?.weather[0] || items[0].weather[0],
+    }));
+  }, [forecastList]);
 };
-
-export { groupForecastByDay };
