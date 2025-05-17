@@ -1,4 +1,3 @@
-// components/WeatherWidget/EmptyState.tsx
 import React from 'react';
 import styles from '@shared/styles/Home.module.scss';
 import { Cloud } from 'lucide-react';

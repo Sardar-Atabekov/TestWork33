@@ -10,10 +10,9 @@ interface WeatherState {
   setLastSearchedCity: (city: string) => void;
 }
 
-// SSR-safe storage selection
 const getStorage = () =>
   typeof window !== 'undefined'
-    ? createJSONStorage(() => localStorage) // ✅ оборачиваем localStorage
+    ? createJSONStorage(() => localStorage)
     : createJSONStorage(() => ({
         getItem: async () => null,
         setItem: async () => {},
@@ -43,7 +42,7 @@ export const useWeatherStore = create<WeatherState>()(
     }),
     {
       name: 'weather-storage',
-      storage: getStorage(), // ✅ теперь типы совпадают
+      storage: getStorage(),
     }
   )
 );

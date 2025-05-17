@@ -30,6 +30,27 @@ const nextConfig = {
       '@features': path.resolve(__dirname, 'src/features'),
       '@widgets': path.resolve(__dirname, 'src/widgets'),
     };
+
+    const rules = config.module.rules.find(
+      (rule) => typeof rule.oneOf === 'object'
+    );
+    if (rules) {
+      rules.oneOf.forEach((oneOfRule) => {
+        if (oneOfRule.use && Array.isArray(oneOfRule.use)) {
+          oneOfRule.use.forEach((loader) => {
+            if (
+              loader.loader &&
+              loader.loader.includes('css-loader') &&
+              loader.options &&
+              loader.options.modules
+            ) {
+              loader.options.modules.exportLocalsConvention = 'camelCaseOnly';
+            }
+          });
+        }
+      });
+    }
+
     return config;
   },
 };
