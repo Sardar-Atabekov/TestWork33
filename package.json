@@ -11,9 +11,9 @@
     "lint": "next lint --fix",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
-    "prepare": "husky install",
     "postinstall": "husky install",
-    "style-check": "stylelint '**/*.{css,scss}'"
+    "style-check": "stylelint '**/*.{css,scss}'",
+    "style-fix": "stylelint '**/*.{css,scss}' --fix"
   },
   "author": "Sardar Atabekov",
   "keywords": [
@@ -63,8 +63,8 @@
     "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
     "stylelint": "^16.19.1",
-    "stylelint-config-standard": "^38.0.0",
     "stylelint-order": "^7.0.0",
+    "stylelint-scss": "^6.12.0",
     "typescript": "^5.5.3"
   },
   "lint-staged": {

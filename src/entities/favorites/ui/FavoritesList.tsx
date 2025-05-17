@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { EmptyState } from './EmptyState';
 import styles from './favorites.module.scss';
-import { RefreshButton } from '@shared/ui/buttons';
+import { RefreshButton } from '@shared/ui/refreshButton';
 import ErrorMessage from '@shared/ui/ErrorMessage';
 import { WeatherCard } from '@entities/weatherCard';
 import { useFavorites } from '../../../features/favorites/model/useFavorites';

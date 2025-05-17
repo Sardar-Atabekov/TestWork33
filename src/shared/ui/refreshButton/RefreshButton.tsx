@@ -1,6 +1,4 @@
 import { RefreshCw } from 'lucide-react';
-import styles from './buttons.module.scss';
-
 type Props = {
   onClick: () => void;
   loading?: boolean;
@@ -8,7 +6,7 @@ type Props = {
 
 export const RefreshButton = ({ onClick, loading }: Props) => (
   <button
-    className={`btn btn-outline-primary me-2 ${styles.button}`}
+    className={`btn btn-outline-primary me-2`}
     onClick={onClick}
     disabled={loading}
   >

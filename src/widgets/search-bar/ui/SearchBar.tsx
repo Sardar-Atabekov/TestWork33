@@ -1,60 +1,62 @@
-import React, { useState, FormEvent, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SearchBar.module.scss';
-import { Search } from 'lucide-react';
+import SearchButton from '@shared/ui/searchButton/SearchButton';
 
 interface SearchBarProps {
-  onSearch?: (city: string) => void;
   defaultValue?: string;
+  autoFocus?: boolean;
 }
 
-const SearchBar = ({ onSearch, defaultValue = '' }: SearchBarProps) => {
+const SearchBar = ({
+  defaultValue = '',
+  autoFocus = false,
+}: SearchBarProps) => {
   const [city, setCity] = useState(defaultValue);
+  const [isPending, setIsPending] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (city.trim()) {
-      if (onSearch) {
-        onSearch(city.trim());
-      } else {
-        router.push(`/?city=${encodeURIComponent(city.trim())}`);
-      }
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
     }
-  };
+  }, [autoFocus]);
 
-  const handleSearch = useCallback((value: string) => setCity(value), []);
+  const handleSearch = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      const trimmed = city.trim();
+
+      if (!trimmed) return;
+
+      setIsPending(true);
+      try {
+        await router.push(`/?city=${encodeURIComponent(trimmed)}`);
+      } finally {
+        setIsPending(false);
+      }
+    },
+    [city, router]
+  );
 
   return (
-    <form onSubmit={handleSubmit} className={styles.searchBar}>
+    <form onSubmit={handleSearch} className={styles.searchForm}>
       <div className="input-group mb-3">
         <input
+          ref={inputRef}
           type="text"
-          className="form-control"
-          placeholder="Enter city name (e.g., London, Moscow, Tokyo)"
           value={city}
-          onChange={handleSearch}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter city name (e.g., London, Moscow, Tokyo)"
+          className="form-control"
           aria-label="City name"
+          required
         />
-        <button
-          className="btn btn-primary"
-          type="submit"
-          disabled={!city.trim()}
-        >
-          <Search
-            width={16}
-            height={16}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="me-1"
-          />
-          Search
-        </button>
+        <SearchButton
+          isPending={isPending}
+          disabled={isPending || !city.trim()}
+        />
       </div>
     </form>
   );

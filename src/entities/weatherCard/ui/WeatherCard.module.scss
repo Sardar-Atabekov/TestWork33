@@ -1,21 +1,21 @@
-.weatherCard {
+.weather-card {
   background-color: #e6f2f7; // нежно-голубой фон всей карточки
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 5%);
   padding: 1rem;
 }
 
-.weatherDetails {
+.weather-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   margin-top: 1rem;
 }
 
-.cardHeader {
+.card-header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 1rem;
 }
 
@@ -25,16 +25,17 @@
   margin: 0;
 }
 
-.detailItem {
-  display: flex;
-  flex-direction: column;
+.detail-item {
   align-items: center;
   background-color: #f4faff; // светло-синий/голубоватый
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   padding-bottom: 0.2rem;
   text-align: center;
   transition: background-color 0.3s ease;
+
   div {
     span {
       display: block;
@@ -47,29 +48,29 @@
   }
 }
 
-.iconHumidity {
-  color: #3399ff;
+.icon-humidity {
+  color: #39f;
 }
 
-.iconWind {
+.icon-wind {
   color: #00b8d9;
 }
 
-.iconPressure {
+.icon-pressure {
   color: #5e72e4;
 }
 
-.iconVisibility {
+.icon-visibility {
   color: #66c2ff;
 }
 
-.weatherMain {
-  display: flex;
+.weather-main {
   align-items: center;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
   justify-content: space-around;
   margin: 1rem 0;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e9ecef;
 
   .temperature {
     text-align: center;
@@ -86,7 +87,7 @@
     }
   }
 
-  .weatherIcon {
+  .weather-icon {
     text-align: center;
 
     img {
@@ -101,12 +102,12 @@
   }
 }
 
-@media (max-width: 576px) {
-  .weatherMain {
+@media (width <= 576px) {
+  .weather-main {
     flex-direction: column;
 
     .temperature,
-    .weatherIcon {
+    .weather-icon {
       margin-bottom: 1rem;
     }
   }
