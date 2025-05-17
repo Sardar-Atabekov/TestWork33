@@ -1,35 +1,34 @@
-import { useMemo } from 'react';
 import { ForecastItem } from '@shared/types/weather';
+import { useMemo } from 'react';
 
-export const useForecastByDay = (forecastList: ForecastItem[]) => {
-  return useMemo(() => {
-    if (!forecastList?.length) return [];
+// Группировка прогноза по дням с сортировкой по времени
+export function groupForecastByDay(
+  forecastList: ForecastItem[]
+): Record<string, ForecastItem[]> {
+  const grouped: Record<string, ForecastItem[]> = {};
 
-    const groupedByDay: Record<string, ForecastItem[]> = {};
-
-    forecastList.forEach((item) => {
-      const date = new Date(item.dt * 1000);
-      const day = date.toISOString().split('T')[0]; // YYYY-MM-DD
-
-      if (!groupedByDay[day]) {
-        groupedByDay[day] = [];
-      }
-
-      groupedByDay[day].push(item);
+  for (const item of forecastList) {
+    const date = new Date(item.dt * 1000);
+    const day = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
     });
 
-    return Object.entries(groupedByDay).map(([day, items]) => ({
-      day,
-      items,
-      avgTemp:
-        items.reduce((sum, item) => sum + item.main.temp, 0) / items.length,
-      minTemp: Math.min(...items.map((item) => item.main.temp_min)),
-      maxTemp: Math.max(...items.map((item) => item.main.temp_max)),
-      mainCondition:
-        items.find((item) => {
-          const hour = new Date(item.dt * 1000).getHours();
-          return hour >= 11 && hour <= 13;
-        })?.weather[0] || items[0].weather[0],
-    }));
-  }, [forecastList]);
-};
+    if (!grouped[day]) {
+      grouped[day] = [];
+    }
+    grouped[day].push(item);
+  }
+
+  // Сортировка дней и времени внутри дня
+  return Object.fromEntries(
+    Object.entries(grouped)
+      .sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime())
+      .map(([day, items]) => [day, items.slice().sort((a, b) => a.dt - b.dt)])
+  );
+}
+
+export function useGroupedForecast(forecastList: ForecastItem[] = []) {
+  return useMemo(() => groupForecastByDay(forecastList), [forecastList]);
+}

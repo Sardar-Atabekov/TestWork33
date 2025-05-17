@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SearchBar.module.scss';
 import { Search } from 'lucide-react';
@@ -24,6 +24,8 @@ const SearchBar = ({ onSearch, defaultValue = '' }: SearchBarProps) => {
     }
   };
 
+  const handleSearch = useCallback((value: string) => setCity(value), []);
+
   return (
     <form onSubmit={handleSubmit} className={styles.searchBar}>
       <div className="input-group mb-3">
@@ -32,7 +34,7 @@ const SearchBar = ({ onSearch, defaultValue = '' }: SearchBarProps) => {
           className="form-control"
           placeholder="Enter city name (e.g., London, Moscow, Tokyo)"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={handleSearch}
           aria-label="City name"
         />
         <button

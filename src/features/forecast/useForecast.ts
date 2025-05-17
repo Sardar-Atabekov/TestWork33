@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getForecast, getCurrentWeather } from '@shared/api/api';
 import { groupForecastByDay } from './lib/forecastUtils';
@@ -50,10 +50,13 @@ export const useForecast = () => {
     fetchData();
   }, [city]);
 
+  const groupedForecast = useMemo(() => {
+    if (!state.forecast) return {};
+    return groupForecastByDay(state.forecast.list);
+  }, [state.forecast]);
+
   return {
     ...state,
-    groupedForecast: state.forecast
-      ? groupForecastByDay(state.forecast.list)
-      : {},
+    groupedForecast,
   };
 };
