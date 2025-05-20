@@ -28,7 +28,7 @@
   "license": "ISC",
   "description": "React/Next.js weather application",
   "dependencies": {
-    "axios": "^1.8.4",
+    "axios": "^1.9.0",
     "bootstrap": "^5.3.5",
     "dotenv": "^16.5.0",
     "lucide-react": "^0.503.0",
