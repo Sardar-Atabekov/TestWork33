@@ -22,7 +22,7 @@ const Layout = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column min-vh-100" data-testid="layout">
         <header>
           <Navbar />
         </header>
